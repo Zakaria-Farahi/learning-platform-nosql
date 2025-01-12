@@ -10,3 +10,5 @@
 ![img_2.png](img_2.png)
 - 4eme commit : ajouter fonction cacheData, removeCachedData, removeAndCacheData et getCachedData dans redisService
 ![img_3.png](img_3.png)
+- 5eme commit : modifie courseController
+![img_4.png](img_4.png)
