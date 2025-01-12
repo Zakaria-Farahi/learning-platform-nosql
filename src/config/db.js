@@ -35,8 +35,6 @@ async function connectMongo(retry = 0) {
     }
 }
 
-connectMongo();
-
 async function connectRedis(retry = 0) {
   // TODO: Implémenter la connexion Redis
     try{
@@ -65,7 +63,6 @@ async function connectRedis(retry = 0) {
     }
 }
 
-connectRedis();
 
 async function closeConnections() {
     try {
@@ -83,12 +80,24 @@ async function closeConnections() {
     }
 }
 
-setTimeout(closeConnections, 10000);
+async function initializeConnections() {
+    try {
+        const [mongoDb, redisDb] = await Promise.all([
+            connectMongo(),
+            connectRedis()
+        ]);
 
+        return { mongoDb, redisDb };
+    } catch (error) {
+        console.error('Failed to initialize database connections:', error);
+        throw error;
+    }
+}
 // Export des fonctions et clients
 module.exports = {
   // TODO: Exporter les clients et fonctions utiles
-    db,
-    redisClient,
-    closeConnections
+    initializeConnections,
+    closeConnections,
+    getMongoDb: () => db,
+    getRedisClient: () => redisClient
 };
