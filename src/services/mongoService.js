@@ -42,41 +42,9 @@ async function insertOne(collection, document) {
     }
 }
 
-async function runTests() {
-    try {
-        // Initialize connections
-        await db.initializeConnections();
-        console.log('Connected to MongoDB');
-
-        // Insert a document
-        const insertResult = await insertOne('users', { name: 'Alice', age: 30 });
-        console.log('Insert Result:', insertResult);
-
-        if (insertResult?.insertedId) {
-            // Fetch the document by ID
-            const fetchedDocument = await findOneById('users', insertResult.insertedId);
-            console.log('Fetched Document:', fetchedDocument);
-
-            // Verify the fetched document
-            if (fetchedDocument?.name === 'Alice' && fetchedDocument?.age === 30) {
-                console.log('Test Passed!');
-            } else {
-                console.error('Test Failed: Document mismatch');
-            }
-        } else {
-            console.error('Test Failed: Document not inserted');
-        }
-    } catch (error) {
-        console.error('Error during testing:', error);
-    } finally {
-        // Close all connections
-        await db.closeConnections();
-        console.log('Disconnected from MongoDB');
-    }
-}
-
-runTests();
 // Export des services
 module.exports = {
   // TODO: Exporter les fonctions utilitaires
+    findOneById,
+    insertOne
 };
