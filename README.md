@@ -12,3 +12,5 @@
 ![img_3.png](img_3.png)
 - 5eme commit : modifie courseController
 ![img_4.png](img_4.png)
+- 6eme commit : setup app.js et run le projet
+![img_6.png](img_6.png)

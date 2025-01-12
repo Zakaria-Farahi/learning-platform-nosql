@@ -72,21 +72,13 @@ async function getCourseStats(req, res) {
              }
          ]
        const stats = await db.getMongoDb().aggregate('courses', pipeline);
-         await redisService.cacheData('courseStats', stats);
          const result = stats[0] || { totalCourses: 0 };
+       await redisService.cacheData('courseStats', result);
             res.json(result);
    } catch (e) {
          console.error('Failed to get course stats', e);
    }
 }
-
-async function runTest(){
-    await db.initializeConnections();
-    const res = await createCourse({body: {name: 'test'}}, {json: console.log});
-    const res2 = await getAllCourses({}, {json: console.log});
-}
-
-runTest()
 
 // Export des contrôleurs
 module.exports = {
